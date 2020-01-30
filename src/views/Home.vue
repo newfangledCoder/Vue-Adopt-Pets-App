@@ -1,18 +1,42 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Adopt some best friends</h1>
+    <h4> {{ animalsCount }} </h4>
+    <h4>Cats Count: {{ getAllCats.length }} </h4>
+    <button @click="togglePetForm" class="btn btn-primary">
+      Add New Pet
+    </button>
+
+    <PetForm
+      v-bind:showPetForm="showPetForm"
+    />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import PetForm from '../components/PetForm.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    PetForm
+  },
+  data () {
+    return {
+      showPetForm: false
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'animalsCount',
+      'getAllCats'
+    ])
+  },
+  methods: {
+    togglePetForm () {
+      this.showPetForm = !this.showPetForm
+    }
   }
 }
 </script>
